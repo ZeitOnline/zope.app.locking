@@ -67,7 +67,7 @@ class FakeKeyReference(object):
         return id(self.object)
 
     def __cmp__(self, other):
-        return cmp(id(self.object), id(other.object))
+        return cmp(id(self.object), id(other.object)) # noqa
 
 
 def maybeFakeKeyReference(ob):

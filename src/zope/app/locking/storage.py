@@ -38,6 +38,7 @@ from zope.i18nmessageid import ZopeMessageFactory as _
 timefunc = time.time
 
 
+@interface.implementer(interfaces.ILockStorage, interfaces.ILockTracker)
 class LockStorage(object):
     # WARNING: This is not persistent.  Use PersistentLockStorage instead.
     # This class must remain so that existing instances can be unpickled
@@ -58,8 +59,6 @@ class LockStorage(object):
     implementation. It acts as the persistent storage for locks.
 
     """
-
-    interface.implements(interfaces.ILockStorage, interfaces.ILockTracker)
 
     def __init__(self):
         self.timeouts = IOBTree()
@@ -138,9 +137,9 @@ class LockStorage(object):
             del self.timeouts[key]
 
 
+@interface.implementer(ISized)
 class Sized(object):
 
-    interface.implements(ISized)
     component.adapts(interfaces.ILockStorage)
 
     def __init__(self, context):

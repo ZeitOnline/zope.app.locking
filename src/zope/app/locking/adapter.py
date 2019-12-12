@@ -38,14 +38,13 @@ def LockingAdapterFactory(target):
     return LockingAdapter(target)
 
 
+@interface.implementer(interfaces.ILockable)
 class LockingAdapter(object):
     """
     Default ILockable adapter implementation.
     """
 
     # this MUST be a trusted adapter!!
-
-    interface.implements(interfaces.ILockable)
 
     def __init__(self, context):
         self.storage = component.getUtility(interfaces.ILockStorage)
@@ -126,8 +125,8 @@ class LockingAdapter(object):
         return '<Locking adapter for %s>' % repr(self.context)
 
 
+@interface.implementer(zope.traversing.interfaces.IPathAdapter)
 class LockingPathAdapter(object):
-    interface.implements(zope.traversing.interfaces.IPathAdapter)
 
     def __init__(self, target):
         self._locking = LockingAdapterFactory(target)

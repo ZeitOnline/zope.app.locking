@@ -22,9 +22,8 @@ import zope.interface
 from zope.app.locking.interfaces import ILockInfo
 
 
+@zope.interface.implementer(ILockInfo)
 class LockInfo(persistent.mapping.PersistentMapping):
-
-    zope.interface.implements(ILockInfo)
 
     def __init__(self, target, principal_id, timeout=None):
         # must not store target with security proxy.

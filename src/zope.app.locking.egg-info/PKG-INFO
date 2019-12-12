@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: zope.app.locking
-Version: 3.5.0
+Version: 3.5.0+py3
 Summary: Simple Object Locking Framework for Zope 3 applications
 Home-page: http://pypi.python.org/pypi/zope.app.locking
 Author: Zope Corporation and Contributors

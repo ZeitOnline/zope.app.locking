@@ -165,20 +165,22 @@ class EventBase(ObjectEvent):
         return '%s for %s' % (self.__class__.__name__, repr(self.object))
 
 
+@interface.implementer(ILockedEvent)
 class LockedEvent(EventBase):
-    interface.implements(ILockedEvent)
 
     def __init__(self, object, lock):
         self.object = object
         self.lock = lock
 
 
+@interface.implementer(ILockedEvent)
 class UnlockedEvent(EventBase):
-    interface.implements(IUnlockedEvent)
+    """Break lock event."""
 
 
+@interface.implementer(ILockedEvent)
 class BreakLockEvent(UnlockedEvent):
-    interface.implements(IBreakLockEvent)
+    """Break lock event."""
 
 # exceptions
 
