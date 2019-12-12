@@ -21,6 +21,7 @@ import persistent.mapping
 import zope.interface
 from zope.app.locking.interfaces import ILockInfo
 
+
 class LockInfo(persistent.mapping.PersistentMapping):
 
     zope.interface.implements(ILockInfo)

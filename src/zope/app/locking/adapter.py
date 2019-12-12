@@ -25,6 +25,7 @@ from zope.i18nmessageid import ZopeMessageFactory as _
 from zope.app.locking.lockinfo import LockInfo
 from zope.app.locking import interfaces
 
+
 @component.adapter(interface.Interface)
 @interface.implementer(interfaces.ILockable)
 def LockingAdapterFactory(target):
@@ -35,6 +36,7 @@ def LockingAdapterFactory(target):
     if IKeyReference(target, None) is None:
         return None
     return LockingAdapter(target)
+
 
 class LockingAdapter(object):
     """
@@ -122,6 +124,7 @@ class LockingAdapter(object):
 
     def __repr__(self):
         return '<Locking adapter for %s>' % repr(self.context)
+
 
 class LockingPathAdapter(object):
     interface.implements(zope.traversing.interfaces.IPathAdapter)

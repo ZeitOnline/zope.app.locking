@@ -30,13 +30,12 @@ from zope.size.interfaces import ISized
 from zope.app.keyreference.interfaces import IKeyReference
 from zope.app.locking import interfaces
 # for backwards compatibility:
-from zope.app.locking.interfaces import ILockStorage
+from zope.app.locking.interfaces import ILockStorage # noqa
 
 from zope.i18nmessageid import ZopeMessageFactory as _
 
 
 timefunc = time.time
-
 
 
 class LockStorage(object):
@@ -88,9 +87,8 @@ class LockStorage(object):
         result = []
         for lock in self.locks.values():
             if principal_id is None or principal_id == lock.principal_id:
-                if (lock.timeout is None or 
-                   (lock.created + lock.timeout > timefunc())
-                    ):
+                if (lock.timeout is None or
+                        (lock.created + lock.timeout > timefunc())):
                     result.append(lock)
         return result
 
@@ -111,12 +109,12 @@ class LockStorage(object):
         """
         Set the current lock for an object.
         """
-        ## call cleanup first so that if there is already a lock that
-        ## has timed out for the object then we don't delete it.
+        # call cleanup first so that if there is already a lock that
+        # has timed out for the object then we don't delete it.
         self.cleanup()
         keyref = IKeyReference(object)
         self.locks[keyref] = lock
-        pid = lock.principal_id
+        # pid = lock.principal_id
         if lock.timeout:
             ts = int(lock.created + lock.timeout)
             value = self.timeouts.get(ts, [])

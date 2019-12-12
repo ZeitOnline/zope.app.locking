@@ -16,10 +16,12 @@ Locking tests
 
 $Id: tests.py 95597 2009-01-30 17:34:31Z thefunny42 $
 """
-import sys, unittest, time
+import sys
+import unittest
+import time
 from zope.component.testing import PlacelessSetup
 import zope.event
-from zope.testing import doctest
+import doctest
 from transaction import abort
 
 from zope.interface import Interface
@@ -35,24 +37,26 @@ from zope.app.locking.adapter import LockingPathAdapter
 from zope.app.locking.storage import ILockStorage, PersistentLockStorage
 from zope.app.keyreference.interfaces import IKeyReference
 
+
 class FakeModule:
     def __init__(self, dict):
         self.__dict = dict
+
     def __getattr__(self, name):
         try:
             return self.__dict[name]
         except KeyError:
             raise AttributeError(name)
 
+
 name = 'zope.app.locking.README'
 
 ps = PlacelessSetup()
 
 
-from zope.app.keyreference.interfaces import IKeyReference
-
 class FakeKeyReference(object):
     """Fake keyref for testing"""
+
     def __init__(self, object):
         self.object = object
 
@@ -65,9 +69,11 @@ class FakeKeyReference(object):
     def __cmp__(self, other):
         return cmp(id(self.object), id(other.object))
 
+
 def maybeFakeKeyReference(ob):
     if not isinstance(ob, int):
         return FakeKeyReference(ob)
+
 
 class TestLockStorage(unittest.TestCase):
 
@@ -93,26 +99,26 @@ class TestLockStorage(unittest.TestCase):
     def test_timeout(self):
         # fake time function to avoid a time.sleep in tests
         def faketime(t):
-            zope.app.locking.storage.timefunc = lambda : t
+            zope.app.locking.storage.timefunc = lambda: t
 
-        ## test the cleanup of timedout locks.
+        # test the cleanup of timedout locks.
         content = File('some content', 'text/plain')
         lockable = ILockable(content)
         participation = Participation(Principal('michael'))
         zope.security.management.newInteraction(participation)
         now = time.time()
         faketime(now)
-        lockinfo = lockable.lock(timeout = 1)
+        lockinfo = lockable.lock(timeout=1)
         lockinfo.created = now
         # two seconds pass
         faketime(now + 2.0)
-        ## now lockable.locked is False since the lock has timed out
+        # now lockable.locked is False since the lock has timed out
         self.assertEqual(lockable.locked(), False)
-        ## since lockable.locked is False lockable.lock should succeed
-        ## assume this is done 3 seconds after the first lock
-        lockinfo = lockable.lock(timeout = 20)
+        # since lockable.locked is False lockable.lock should succeed
+        # assume this is done 3 seconds after the first lock
+        lockinfo = lockable.lock(timeout=20)
         lockinfo.created = now + 3.0
-        faketime(now + 4.0) # let time pass
+        faketime(now + 4.0)  # let time pass
         self.assertEqual(lockable.locked(), True)
         zope.security.management.endInteraction()
         # reset the time function
@@ -134,6 +140,7 @@ class TestLockStorage(unittest.TestCase):
 
         zope.security.management.endInteraction()
 
+
 def setUp(test):
     ps.setUp()
     dict = test.globs
@@ -148,7 +155,7 @@ def setUp(test):
     storage = PersistentLockStorage()
     ztapi.provideUtility(ILockStorage, storage)
     ztapi.provideUtility(ILockTracker, storage)
-    test._storage = storage # keep-alive
+    test._storage = storage  # keep-alive
 
 
 def tearDown(test):

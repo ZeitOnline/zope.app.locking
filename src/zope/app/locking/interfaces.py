@@ -22,6 +22,7 @@ from zope.component.interfaces import ObjectEvent, IObjectEvent
 from zope.interface.common.mapping import IMapping
 from zope.i18nmessageid import ZopeMessageFactory as _
 
+
 class ILockable(interface.Interface):
     """
     The ILockable interface defines the locking operations that are
@@ -95,24 +96,25 @@ class ILockTracker(interface.Interface):
 
 class ILockInfo(IMapping):
     """
-    An ILockInfo implementation is responsible for 
+    An ILockInfo implementation is responsible for
     """
 
     target = interface.Attribute("""the actual locked object.""")
 
     principal_id = schema.TextLine(
         description=_("id of the principal owning the lock")
-        )
+    )
 
     created = schema.Float(
         description=_("time value indicating the creation time"),
         required=False
-        )
+    )
 
     timeout = schema.Float(
         description=_("time value indicating the lock timeout from creation"),
         required=False
-        )
+    )
+
 
 class ILockStorage(interface.Interface):
     """
@@ -141,22 +143,27 @@ class ILockStorage(interface.Interface):
 
 # event interfaces
 
+
 class ILockedEvent(IObjectEvent):
     """An object has been locked"""
 
     lock = interface.Attribute("The lock set on the object")
 
+
 class IUnlockedEvent(IObjectEvent):
     """An object has been unlocked"""
+
 
 class IBreakLockEvent(IUnlockedEvent):
     """Lock has been broken on an object"""
 
 # events
 
+
 class EventBase(ObjectEvent):
     def __repr__(self):
-        return '%s for %s' % (self.__class__.__name__, `self.object`)
+        return '%s for %s' % (self.__class__.__name__, repr(self.object))
+
 
 class LockedEvent(EventBase):
     interface.implements(ILockedEvent)
@@ -169,13 +176,14 @@ class LockedEvent(EventBase):
 class UnlockedEvent(EventBase):
     interface.implements(IUnlockedEvent)
 
+
 class BreakLockEvent(UnlockedEvent):
     interface.implements(IBreakLockEvent)
 
 # exceptions
 
+
 class LockingError(Exception):
     """
     The exception raised for locking errors.
     """
-
