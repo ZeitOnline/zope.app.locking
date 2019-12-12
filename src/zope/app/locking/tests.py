@@ -66,6 +66,24 @@ class FakeKeyReference(object):
     def __hash__(self):
         return id(self.object)
 
+    def __eq__(self, other):
+        return id(self.object) == id(other.object)
+
+    def __ne__(self, other):
+        return id(self.object) != id(other.object)
+
+    def __lt__(self, other):
+        return id(self.object) < id(other.object)
+
+    def __le__(self, other):
+        return id(self.object) <= id(other.object)
+
+    def __gt__(self, other):
+        return id(self.object) > id(other.object)
+
+    def __ge__(self, other):
+        return id(self.object) >= id(other.object)
+
     def __cmp__(self, other):
         return cmp(id(self.object), id(other.object)) # noqa
 
