@@ -18,7 +18,7 @@ $Id: interfaces.py 81099 2007-10-25 15:51:09Z srichter $
 """
 from zope import interface, schema
 
-from zope.component.interfaces import ObjectEvent, IObjectEvent
+from zope.interface.interfaces import ObjectEvent, IObjectEvent
 from zope.interface.common.mapping import IMapping
 from zope.i18nmessageid import ZopeMessageFactory as _
 
