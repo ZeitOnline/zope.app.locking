@@ -16,13 +16,13 @@
 $Id: setup.py 74669 2007-04-23 12:04:26Z ctheune $
 """
 import os
-from setuptools import setup, find_packages
+from setuptools import setup
 
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 setup(name='zope.app.locking',
-      version = '3.5.0+py3.1',
+      version = '3.5.0+py3.2',
       author='Zope Corporation and Contributors',
       author_email='zope-dev@zope.org',
       description='Simple Object Locking Framework for Zope 3 applications',
@@ -49,15 +49,11 @@ setup(name='zope.app.locking',
           'Framework :: Zope3'],
       url='http://pypi.python.org/pypi/zope.app.locking',
       license='ZPL 2.1',
-      packages=find_packages('src'),
-      package_dir = {'': 'src'},
-      namespace_packages=['zope', 'zope.app'],
       extras_require = dict(test=['zope.app.testing',
                                   'zope.testing',
                                   'zope.app.file',
                                   'zope.site', ]),
-      install_requires=['setuptools',
-                        'zope.security',
+      install_requires=['zope.security',
                         'zope.app.keyreference',
                         'zope.app.i18n',
                         'zope.interface',
