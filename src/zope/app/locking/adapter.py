@@ -19,7 +19,6 @@ $Id: adapter.py 81099 2007-10-25 15:51:09Z srichter $
 
 from zope import interface, component, event
 import zope.security.management
-from zope.app.keyreference.interfaces import IKeyReference
 from zope.i18nmessageid import ZopeMessageFactory as _
 
 from zope.app.locking.lockinfo import LockInfo
@@ -33,6 +32,8 @@ def LockingAdapterFactory(target):
     Return target adapted to ILockable, or None. This should be registered
     against zope.interface.Interface to provide adaptation to ILockable.
     """
+    from zope.app.keyreference.interfaces import IKeyReference
+
     if IKeyReference(target, None) is None:
         return None
     return LockingAdapter(target)
