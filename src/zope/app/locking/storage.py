@@ -27,7 +27,6 @@ from BTrees.IOBTree import IOBTree
 from zope import component, interface
 from zope.size.interfaces import ISized
 
-from zope.app.keyreference.interfaces import IKeyReference
 from zope.app.locking import interfaces
 # for backwards compatibility:
 from zope.app.locking.interfaces import ILockStorage # noqa
@@ -97,6 +96,7 @@ class LockStorage(object):
         """
         Get the current lock for an object.
         """
+        from zope.app.keyreference.interfaces import IKeyReference
         keyref = IKeyReference(object)
         lock = self.locks.get(keyref, None)
         if lock is not None and lock.timeout is not None:
@@ -110,6 +110,7 @@ class LockStorage(object):
         """
         # call cleanup first so that if there is already a lock that
         # has timed out for the object then we don't delete it.
+        from zope.app.keyreference.interfaces import IKeyReference
         self.cleanup()
         keyref = IKeyReference(object)
         self.locks[keyref] = lock
@@ -124,6 +125,7 @@ class LockStorage(object):
         """
         Delete the current lock for an object.
         """
+        from zope.app.keyreference.interfaces import IKeyReference
         keyref = IKeyReference(object)
         del self.locks[keyref]
 
