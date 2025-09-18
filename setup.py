@@ -26,16 +26,6 @@ setup(name='zope.app.locking',
       author='Zope Corporation and Contributors',
       author_email='zope-dev@zope.org',
       description='Simple Object Locking Framework for Zope 3 applications',
-      long_description=(
-          read('README.txt')
-          + '\n\n' +
-          'Detailed Dcoumentation\n' +
-          '----------------------\n'
-          + '\n\n' +
-          read('src', 'zope', 'app', 'locking', 'README.txt')
-          + '\n\n' +
-          read('CHANGES.txt')
-          ),
       keywords = "zope3 object locking",
       classifiers = [
           'Development Status :: 5 - Production/Stable',
